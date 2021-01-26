@@ -1,7 +1,11 @@
 // Define the top-level module called ripple carry
 // counter. It instantiates 4 T-flipflops. Interconnections are
 // shown in Section 2.2, 4-bit Ripple Carry Counter.
-module ripple_carry_counter(q, clk, reset);
+module ripple_carry_counter(
+  q,
+  clk,
+  reset
+);
 
 output [3:0] q;     //I/O signals and vector declarations
                     //will be explained later.
