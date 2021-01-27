@@ -87,6 +87,8 @@ considered to be part of the identifier. Therefore, an escaped identifier
     \a*(b+c)
     \a+b-c
     \**my_name**
+    \cl_ock == cl_ock
+
 
 /******* 3.2 Data Types *********/
 
