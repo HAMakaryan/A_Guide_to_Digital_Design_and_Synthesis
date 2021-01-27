@@ -37,9 +37,9 @@ a = b ? c : d;  // ?: is a ternary operator.  b, c and d are operands
 */
 
   //  Sized numbers
-    4'b1111 // This is a 4-bit binary number
-    12'habc // This is a 12-bit hexadecimal number
-    16'd255 // This is a 16-bit decimal number.
+     4'b1111 // This is a 4-bit binary number
+    12'habc  // This is a 12-bit hexadecimal number
+    16'd255  // This is a 16-bit decimal number.
 
   //  Unsized numbers
     23456   // This is a 32-bit decimal number by default

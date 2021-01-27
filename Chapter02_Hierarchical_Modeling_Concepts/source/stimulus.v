@@ -22,9 +22,9 @@ ripple_carry_counter DUT
 always
 begin
   clk = 1'b0;
-  #5;
+  #50;
   clk = 1'b1;
-  #5;
+  #50;
 end
 
 // Control the reset signal that drives the design block
