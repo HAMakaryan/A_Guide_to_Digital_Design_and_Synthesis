@@ -52,7 +52,7 @@ a = b ? c : d;  // ?: is a ternary operator.  b, c and d are operands
     32'bz   // This is a 32-bit high impedance number
 
   //  Negative numbers
-    -6'd3   // 8-bit negative number stored as 2's complement of 3
+    -6'd3   // 8-bit negative number stored as 2`s complement of 3
     -6'sd3  // Used for performing signed integer math
     4'd-2   // Illegal specification
 
@@ -133,5 +133,220 @@ considered to be part of the identifier. Therefore, an escaped identifier
   wire [31:0] busA,busB,busC; // 3 buses of 32-bit width.
   reg clock;                  // scalar register, default
   reg [0:40] virtual_addr;    // Vector register, virtual address 41 bits wide
-  //  Vector Part Select
+    //  Vector Part Select
+    busA[7]     // bit # 7 of vector busA
+    bus[2:0]    // Three least significant bits of vector bus,
+                // using bus[0:2] is illegal because the significant bit should
+                // always be on the left of a range specification
+    virtual_addr[0:1] // Two most significant bits of vector virtual_addr
+    //  Variable Vector Part Select
+    reg [255:0] data1; //Little endian notation
+    reg [0:255] data2; //Big endian notation
+    reg [7:0]   byte;
+    //Using a variable part select, one can choose parts
+        byte = data1[31-:8]; //starting bit = 31, width =8 => data1[31:24]
+        byte = data1[24+:8]; //starting bit = 24, width =8 => data1[31:24]
+        byte = data2[31-:8]; //starting bit = 31, width =8 => data2[24:31]
+        byte = data2[24+:8]; //starting bit = 24, width =8 => data2[24:31]
+    //The starting bit can also be a variable. The width has
+    //to be constant. Therefore, one can use the variable part select
+    //in a loop to select all bytes of the vector.
+    for (j=0; j<=31; j=j+1)
+    begin
+      byte = data1[(j*8)+:8]; //Sequence is [7:0], [15:8]... [255:248]
+    end
+    //Can initialize a part of the vector
+    data1[(byteNum*8)+:8] = 8'b0; //If byteNum = 1, clear 8 bits [15:8]
+
+    //  3.2.5 Integer , Real, and Time Register Data Types
+        //  Integer
+    integer counter; // general purpose variable used as a counter.
+    initial
+    begin
+      counter = -1; // A negative one is stored in the counter
+    end
+        //  Real
+    real delta;     // Define a real variable called delta
+    initial
+    begin
+      delta = 4e10; // delta is assigned in scientific notation
+      delta = 2.13; // delta is assigned a value 2.13
+    end
+    integer i;      // Define an integer i
+    initial
+    begin
+      i = delta;    // i gets the value 2 (rounded value of 2.13)
+    end
+        //  Time
+    time save_sim_time; // Define a time variable save_sim_time
+    initial
+    begin
+      save_sim_time = $time; // Save the current simulation time
+    end
+
+  //  3.2.6 Arrays
+  integer count [0 :  7]; // An array of 8 count variables
+  reg     bool  [31:  0]; // Array of 32 one-bit boolean register variables
+  time chk_point[ 1:100]; // Array of 100 time checkpoint variables
+  reg [4:0] port_id[0:7]; // Array of 8 port_ids; each port_id is 5 bits wide
+  integer matrix[4:0][0:255]; // Two dimensional array of integers
+  reg [63:0] array_4d [15:0][7:0][7:0][255:0]; //Four dimensional array
+  wire [7:0] w_array2 [5:0]; // Declare an array of 8 bit vector wire
+  wire w_array1[7:0][5:0]; // Declare an array of single bit wires
+    //    Examples of assignments to elements of arrays discussed above are
+    //  shown below:
+  count[5]        = 0;    // Reset 5th element of array of count variables
+  chk_point[100]  = 0;    // Reset 100th time check point value
+  port_id[3]      = 0;    // Reset 3rd element (a 5-bit value) of port_id array.
+  matrix[1][0]    = 33559;// Set value of element indexed by [1][0] to 33559
+  array_4d[0][0][0][0][15:0] = 0; //Clear bits 15:0 of the register
+                                  //accessed by indices [0][0][0][0]
+  port_id         = 0; // Illegal syntax - Attempt to write the entire array
+  matrix [1]      = 0; // Illegal syntax - Attempt to write [1][0]..[1][255]
+
+  //  3.2.7 Memories
+  reg       mem1bit[0:1023]; // Memory mem1bit with 1K 1-bit words
+  reg [7:0] membyte[0:1023]; // Memory membyte with 1K 8-bit words(bytes)
+  membyte[511] // Fetches 1 byte word whose address is 511.
+
+  //  3.2.8 Parameters
+  parameter port_id = 5;            // Defines a constant port_id
+  parameter cache_line_width = 256; // Constant defines width of cache line
+  parameter signed [15:0] WIDTH;    // Fixed sign and range for parameter WIDTH
+
+  localparam  state1 = 4'b0001,
+              state2 = 4'b0010,
+              state3 = 4'b0100,
+              state4 = 4'b1000;
+
+  //  3.2.9 Strings
+  reg [8*18:1] string_value; // Declare a variable that is 18 bytes wide
+  initial
+  begin
+    string_value = "Hello Verilog World"; // String can be stored in variable
+  end
+    //  Special Characters
+/************************************************
+    Escaped Characters Character Displayed
+    \n                  newline
+    \t                  tab
+    \\                  \
+    \"                  "
+    \ddd  A character specified in 1–3 octal digits (0 <= d <= 7).
+          If less than three characters are used, the following character
+          shall not be an octal digit.
+          Implementations may issue an error if the character
+          represented is greater than \377.
+/************************************************/
+
+/******* 3.3 System Tasks and Compiler Directives *********/
+
+  //  3.3.1 System Tasks
+    //  Displaying information
+    //  Usage: $display(p1, p2, p3,....., pn);
+/************************************************
+    Argument      Description
+    %h or %H    Display in hexadecimal format
+    %d or %D    Display in decimal format
+    %o or %O    Display in octal format
+    %b or %B    Display in binary format
+    %c or %C    Display in ASCII character format
+    %l or %L    Display library binding information
+    %v or %V    Display net signal strength
+    %m or %M    Display hierarchical name
+    %s or %S    Display as a string
+    %t or %T    Display in current time format
+    %u or %U    Unformatted 2 value data
+    %z or %Z    Unformatted 4 value data
+/************************************************/
+
+      //  Example 3-3 $display Task
+  //Display the string in quotes
+  $display("Hello Verilog World");
+  -- Hello Verilog World
+
+  //Display value of current simulation time 230
+  $display($time);
+  -- 230
+
+  //Display value of 41-bit virtual address 1fe0000001c at time 200
+  reg [0:40] virtual_addr;
+  $display("At time %d virtual address is %h", $time, virtual_addr);
+  -- At time 200 virtual address is 1fe0000001c
+
+  //Display value of port_id 5 in binary
+  reg [4:0] port_id;
+  $display("ID of the port is %b", port_id);
+  -- ID of the port is 00101
+
+  //Display x characters
+  //Display value of 4-bit bus 10xx (signal contention) in binary
+  reg [3:0] bus;
+  $display("Bus value is %b", bus);
+  -- Bus value is 10xx
+
+  //Display the hierarchical name of instance p1 instantiated under
+  //the highest-level module called top. No argument is required. This
+  //is a useful feature)
+    $display("This string is displayed from %m level of hierarchy");
+  -- This string is displayed from top.p1 level of hierarchy
+
+      //  Example 3-4 Special Characters
+  //Display special characters, newline and %
+  $display("This is a \n multiline string with a %% sign");
+  -- This is a
+  -- multiline string with a % sign
+
+
+    //  Monitoring information
+/*
+Verilog provides a mechanism to monitor a signal when its value changes.
+This facility is provided by the $monitor task.
+    Usage: $monitor(p1,p2,p3,....,pn);
+*/
+//  Two tasks are used to switch monitoring on and off.
+    //  Usage:
+    $monitoron;
+    $monitoroff;
+    //  Example 3-5 Monitor Statement
+  //Monitor time and value of the signals clock and reset
+  //Clock toggles every 5 time units and reset goes down at 10 time units
+  initial
+  begin
+    $monitor($time, " Value of signals clock = %b reset = %b", clock,reset);
+  end
+
+//  Partial output of the monitor statement:
+-- 0 Value of signals clock = 0 reset = 1
+-- 5 Value of signals clock = 1 reset = 1
+-- 10 Value of signals clock = 0 reset = 0
+
+    //  Stopping and finishing in a simulation
+      //  The task $stop is provided to stop during a simulation.
+        //  Usage: $stop;
+      //  The $finish task terminates the simulation.
+        //  Usage: $finish;
+
+  //  3.3.2 Compiler Directives
+    //  `define
+  //define a text macro that defines default word size
+  //Used as `WORD_SIZE in the code
+  `define WORD_SIZE 32
+  //define an alias. A $stop will be substituted wherever `S appears
+  `define S $stop;
+  //define a frequently used text string
+  `define WORD_REG reg [31:0]
+  // you can then define a 32-bit register as `WORD_REG reg32;
+    //  `include
+// Include the file header.v, which contains declarations in the
+// main verilog file design.v.
+`include header.v
+...
+...
+<Verilog code in file design.v>
+...
+...
+
+
+
 
