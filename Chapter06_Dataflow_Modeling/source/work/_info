@@ -1,0 +1,41 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dd:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source
+T_opt
+!s110 1612321230
+VBLcTk2diBfPFifCAYODJ73
+04 15 4 work Shift_Operators fast 0
+=13-f44d306bd542-601a11cd-2c8-2a80
+o-quiet -auto_acc_if_foreign -work work +acc
+Z1 tCvgOpt 0
+n@_opt
+OL;O;10.6d;65
+vShift_Operators
+!s110 1612321229
+!i10b 1
+!s100 NNPNZJ?O^H4CLDc6CnRmW3
+I]`jVMR?0b><TSXAdP[W<z3
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1612321199
+8D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/06_04_07_Shift_Operators.v
+FD:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/06_04_07_Shift_Operators.v
+L0 5
+OL;L;10.6d;65
+r1
+!s85 0
+31
+!s108 1612321229.000000
+!s107 D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/06_04_07_Shift_Operators.v|
+!s90 -##implicit##push_minusfile_path##|D:/Jor_ws/LPDDR2/radiant_prj/lpddr2/inst01/testbench/modelsim/vlog.opt|-##implicit##pop_minusfile_path##|-reportprogress|300|-work|work|D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/06_04_07_Shift_Operators.v|
+!i113 0
+o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1
+n@shift_@operators

@@ -1,0 +1,6 @@
+# cd D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source
+
+vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/06_04_07_Shift_Operators.v
+restart -f
+run -all
+# vsim -voptargs=+acc work.Shift_Operators
