@@ -4,13 +4,13 @@
 
 module Shift_Operators;
 
-reg signed  [7:0] operand_1;
+reg         [7:0] operand_1;
 reg signed  [7:0] operand_2;
 reg signed  [7:0] operand_3;
 
 initial
 begin
-  $monitor($time, "operand_1 = %b\toperand_2 = %b\toperand_3 = %b\t", operand_1, operand_2, operand_3);
+  $monitor($time, "op1 = %b\to2 = %b\to3 = %b\t", operand_1, operand_2, operand_3);
   operand_1 = -15;
   operand_2 = operand_1 >> 3;
   operand_3 = operand_1 << 3;
