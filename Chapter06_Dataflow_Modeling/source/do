@@ -1,10 +1,14 @@
 # cd D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source
 
 
-vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/edge_dff.v
-vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/edge_dff_tb.v
+# vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/edge_dff.v
+# vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/edge_dff_tb.v
 
 # vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/06_04_07_Shift_Operators.v
+
+vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/Master_Slave_JK_flipflop.v
+vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/four_bit_Synchronous_Counter.v
+vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter06_Dataflow_Modeling/source/four_bit_Synchronous_Counter_tb.v
 
 
 #vsim -voptargs=+acc -debugDB work.edge_dff_tb
