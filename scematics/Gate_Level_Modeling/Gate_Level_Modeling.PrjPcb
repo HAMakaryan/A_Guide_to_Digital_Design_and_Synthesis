@@ -30,7 +30,7 @@ DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
 FSMCodingStyle=eFMSDropDownList_OneProcess
 FSMEncodingStyle=eFMSDropDownList_OneHot
-OutputPath=
+OutputPath=Project Outputs for Gate_Level_Modeling
 LogFolderPath=
 ManagedProjectGUID=
 
@@ -158,7 +158,7 @@ GenerateClassCluster=0
 DocumentUniqueId=RHWLVDIJ
 
 [Document8]
-DocumentPath=05_07_1bit_Full_Adder.SchDoc
+DocumentPath=S_R_Latch.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -172,7 +172,7 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=MLLDRAXV
+DocumentUniqueId=KASGTHNU
 
 [Configuration1]
 Name=Default Configuration
@@ -221,7 +221,7 @@ SCH_HasExpandLogicalToPhysicalSheets=-1
 SaveSettingsToOutJob=0
 
 [Generic_EDE]
-OutputDir=
+OutputDir=Project Outputs for Gate_Level_Modeling
 
 [OutputGroup1]
 Name=Netlist Outputs
