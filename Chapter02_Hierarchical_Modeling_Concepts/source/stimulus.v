@@ -35,7 +35,7 @@ begin
   #15 reset = 1'b0;
   #180 reset = 1'b1;
   #10 reset = 1'b0;
-  #20 $finish; //terminate the simulation
+  #2000 $finish; //terminate the simulation
 end
 
 // Monitor the outputs
