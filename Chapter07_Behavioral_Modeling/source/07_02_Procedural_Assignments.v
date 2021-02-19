@@ -20,8 +20,30 @@ The left-hand side of a procedural assignment <lvalue> can be one of the followi
 
 */
 
+reg         clock = 0;
+reg   a = 0;
+reg   b = 1;
 
-`define NONBLOCKING
+reg   temp_a;
+reg   temp_b;
+
+
+localparam in_1   = 2'b10;
+localparam in_2   = 2'b00;
+localparam in_3   = 2'b11;
+
+reg   [1:0] reg_1 = 2'b01;
+reg   [1:0] reg_2 = 2'b10;
+reg   [1:0] reg_3 = 2'b11;
+
+reg         x, y, z;
+reg [15:0]  reg_a, reg_b;
+integer     count;
+
+
+always #5 clock=!clock;
+
+`define BLOCKING //BLOCKING // NONBLOCKING
 
 /////////////////////////////
 /*
@@ -30,53 +52,100 @@ The left-hand side of a procedural assignment <lvalue> can be one of the followi
 */
 
 `ifdef BLOCKING
-
   //  Example 7-6 Blocking Statements
-reg         x, y, z;
-reg [15:0]  reg_a, reg_b;
-integer     count;
-
 //All behavioral statements must be inside an initial or always block
 initial
 begin
-  x = 0;                        //Scalar assignments
-  y = 1;
-  z = 1;
-  count = 0;                    //Assignment to integer variables
-  reg_a = 16'b0;                //initialize vectors
-  reg_b = reg_a;
+  $display("\n\t\tBlocking Assignments");
+  x                = 0;         //Scalar assignments
+  y                = 1;
+  z                = 1;
+  count            = 0;         //Assignment to integer variables
+  reg_a            = 16'b0;     //initialize vectors
+  reg_b            = reg_a;
   #15 reg_a[    2] = 1'b1;      //Bit select assignment with delay
   #10 reg_b[15:13] = {x, y, z}; //Assign result of concatenation to
                                 // part select of a vector
   count = count + 1;            //Assignment to an integer (increment)
 end
-`else
+
+
+always @(posedge clock)
+begin
+  a = b;
+end
+
+always @(posedge clock)
+begin
+  b = a;
+end
+
+/*
+*/
+`elsif NONBLOCKING
 
 /////////////////////////////
 //  Example 7-7 Nonblocking Assignments
-reg           x, y, z;
-reg   [15:0]  reg_a, reg_b;
-integer       count;
-
 //All behavioral statements must be inside an initial or always block
 initial
 begin
-  x = 0;                  //Scalar assignments
-  y = 1;
-  z = 1;
-  count = 0;              //Assignment to integer variables
-  reg_a = 16'b0;          //Initialize vectors
-  reg_b = reg_a;
+  $display("\n\t\tNonblocking Assignments");
+  x              = 0;             //Scalar assignments
+  y              = 1;
+  z              = 1;
+  count          = 0;             //Assignment to integer variables
+  reg_a          = 16'b0;         //Initialize vectors
+  reg_b          = reg_a;
   reg_a[2]      <= #15 1'b1;      //Bit select assignment with delay
   reg_b[15:13]  <= #10 {x, y, z}; //Assign result of concatenation
                                   //to part select of a vector
-  count <= count + 1;             //Assignment to an integer (increment)
+  count         <= count + 1;     //Assignment to an integer (increment)
 end
+
+
+always @(posedge clock)
+begin
+  a <= b;
+  reg_1 <= #1 in_1;
+  reg_2 <= @(negedge clock) in_2 ^ in_3;
+  reg_3 <= #1 reg_1; //The old value of reg1
+end
+
+always @(posedge clock)
+begin
+  a <= b;
+end
+
+always @(posedge clock)
+begin
+  b <= a;
+end
+
+/*
+
+*/
+`else
+
+  //Emulate the behavior of nonblocking assignments by
+  //using temporary variables and blocking assignments
+always @(posedge clock)
+begin
+//Read operation
+//store values of right-hand-side expressions in temporary variables
+  temp_a = a;
+  temp_b = b;
+//Write operation
+//Assign values of temporary variables to left-hand-side variables
+  a = temp_b;
+  b = temp_a;
+end
+
 `endif
 
 initial
 begin
-  $monitor($time,"\tx=%d\ty=%d\tz=%d\tcount=%d\treg_a=%d\treg_b=%d", x, y, z, count, reg_a, reg_b);
+  $monitor($time,"\tx=%d\ty=%d\tz=%d\tcount=%D\treg_a=%H\treg_b=%H\ta=%d\tb=%d"
+                    , x,     y,     z,    count,  reg_a,    reg_b,    a,    b);
   #200 $stop;
 end
 
