@@ -20,7 +20,7 @@ The left-hand side of a procedural assignment <lvalue> can be one of the followi
 
 */
 
-reg         clock = 0;
+reg         clock = 1;
 reg   a = 0;
 reg   b = 1;
 
@@ -43,7 +43,7 @@ integer     count;
 
 always #5 clock=!clock;
 
-`define BLOCKING //BLOCKING // NONBLOCKING
+`define N_BLOCKING //BLOCKING // NONBLOCKING
 
 /////////////////////////////
 /*
@@ -96,19 +96,20 @@ begin
   count          = 0;             //Assignment to integer variables
   reg_a          = 16'b0;         //Initialize vectors
   reg_b          = reg_a;
+  #1;
   reg_a[2]      <= #15 1'b1;      //Bit select assignment with delay
   reg_b[15:13]  <= #10 {x, y, z}; //Assign result of concatenation
-                                  //to part select of a vector
+  #1;                             //to part select of a vector
   count         <= count + 1;     //Assignment to an integer (increment)
 end
 
 
 always @(posedge clock)
 begin
-  a <= b;
-  reg_1 <= #1 in_1;
+//  reg_1 <= #1 in_1;
+  reg_1 <= #1 reg_1 + 1;
   reg_2 <= @(negedge clock) in_2 ^ in_3;
-  reg_3 <= #1 reg_1; //The old value of reg1
+  reg_3 <= #36 reg_1; //The old value of reg1
 end
 
 always @(posedge clock)
