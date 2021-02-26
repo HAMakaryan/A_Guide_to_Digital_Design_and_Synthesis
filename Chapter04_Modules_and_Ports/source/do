@@ -1,0 +1,6 @@
+vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter04_Modules_and_Ports/source/SR_latch.v
+vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter04_Modules_and_Ports/source/Top.v
+# vsim -novopt work.Top
+
+restart -f
+run -all
