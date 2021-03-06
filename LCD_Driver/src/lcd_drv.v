@@ -45,19 +45,19 @@ assign cnt = counter[17:10];
 //Data and register_select definition
 always@(posedge clk_i)
 begin
-	if (0 == rst_n_i )
-	begin
-		lcd_data_o  <= 8'H00;
-	        rs_o        <= 1'b0;
-	end
-	else
-	begin
-		if (data_valid_i && device_ready_o)
-	  	begin
-	    		lcd_data_o  <= data_i[7:0];
-	    		rs_o        <= data_i[8];
-	  	end
-	end
+  if (0 == rst_n_i )
+  begin
+    lcd_data_o  <= 8'H00;
+    rs_o        <= 1'b0;
+  end
+  else
+  begin
+    if (data_valid_i && device_ready_o)
+    begin
+      lcd_data_o  <= data_i[7:0];
+      rs_o        <= data_i[8];
+    end
+  end
 end
 
 
