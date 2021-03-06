@@ -1,3 +1,5 @@
+`timescale 1 ns / 10 ps
+
 // Define the test-bench module (no ports)
 module mux4_to_1_tb;
 
