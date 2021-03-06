@@ -1,5 +1,5 @@
 `timescale 1ns/1ns
-`define SIMULATION
+//`define SIMULATION
 
 module lcd_drv_tb();
   //Declaring inputs

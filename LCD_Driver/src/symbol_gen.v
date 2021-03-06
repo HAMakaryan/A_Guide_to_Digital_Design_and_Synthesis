@@ -48,18 +48,18 @@ end
 
 always@(posedge clk_i)
 begin
-  	if (0 == restn_i)
-	begin
-      		counter <= 21'b0;
-  	end
-	else if ( CurrentState != NextState )
-  	begin
-		  counter <= 0;
-	end
-	else
-	begin
-      counter <= counter + 1;
-  	end
+  if (0 == restn_i)
+  begin
+    counter <= 21'b0;
+  end
+  else if ( (CurrentState != NextState) || (rom_data[8:0] == 9'b0) )
+  begin
+    counter <= 0;
+  end
+  else
+  begin
+    counter <= counter + 1;
+  end
 end
 
 blk_mem_gen_0 init_rom (
@@ -72,7 +72,7 @@ blk_mem_gen_0 init_rom (
 
 always@(posedge clk_i)
 begin
-	if (restn_i)
+	if (0 == restn_i)
 	begin
 		CurrentState <= HOLD;
 	end
