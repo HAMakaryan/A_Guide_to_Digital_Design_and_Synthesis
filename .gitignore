@@ -1,6 +1,7 @@
 *.bak
 *.wlf
-
+*.mcs
+*.prm
 DiamondProjects/
 VivadoProjects/
 DXP_Projects/

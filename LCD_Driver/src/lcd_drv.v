@@ -32,7 +32,7 @@ wire [7:0] dly;
 
 assign en_o = (CurrentState == STROBE)? 1'b1 : 1'b0;
 assign device_ready_o = (CurrentState == IDLE)? 1'b1 : 1'b0;
-assign dly = ({rs_o, lcd_data_o} == 0)? 250 : 10;
+assign dly = ({rs_o, lcd_data_o[7:2]} == 0)? 250 : 10;
 
 `ifdef SIMULATION
 assign cnt = counter[9:2];
