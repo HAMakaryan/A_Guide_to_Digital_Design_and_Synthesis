@@ -1,4 +1,7 @@
 // Example 07_01_initial_Statement.v
+`timescale 1 ns / 10 ps;
+
+
 
 module stimulus_07_01;
 
@@ -9,7 +12,9 @@ reg b;
 reg m;
 
 initial
-m = 1'b0;       //single statement; does not need to be grouped
+begin
+  m = 1'b0;       //single statement; does not need to be grouped
+end
 
 initial
 begin
@@ -23,7 +28,10 @@ begin
   #25 y = 1'b1;
 end
 
-initial #50 $finish;
+initial
+begin
+  #50 $finish;
+end
 
 endmodule
 /////////////////////////////
@@ -34,7 +42,10 @@ endmodule
 reg clock;
 
   //The value of clock is set to 0
-initial clock = 0;
+initial
+begin
+  clock = 0;
+end
 
 //Instead of the above method, clock variable
 //can be initialized at the time of declaration
@@ -77,14 +88,21 @@ module clock_gen (
 //Initialize clock at time zero
 
 initial
-clock = 1'b0;
+begin
+  clock = 1'b0;
+end
 
 //Toggle clock every half-cycle (time period = 20)
 always
-#10 clock = ~clock;
+begin
+  #10 clock = ~clock;
+end
 
 initial
+begin
   #1000 $finish;
+end
+
 endmodule
 
 /************** 7.2 Procedural Assignments  *******************/
@@ -152,4 +170,5 @@ end
 
 /////////////////////////////
 /////////////////////////////
+
 

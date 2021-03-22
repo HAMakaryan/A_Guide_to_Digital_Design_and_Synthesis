@@ -96,26 +96,26 @@ begin
 	case (CurrentState)
 	      IDLE: begin
 	        if(data_valid_i == 1 && device_ready_o == 1) begin
-			NextState <= SET;
+			NextState = SET;
 		end
 	      end
 	      SET: begin
-		if(cnt[0] == 1) begin
-			NextState <= STROBE;
+		if(cnt >= 1) begin
+			NextState = STROBE;
 		end
 	      end
 	      STROBE: begin
-	        if(cnt[0] == 1) begin
-			NextState <= DELAY;
+	        if(cnt >= 1) begin
+			NextState = DELAY;
 		end
 	      end
 	      DELAY: begin
 		if(cnt >= dly) begin
-			NextState <= IDLE;
+			NextState = IDLE;
 		end
 	      end
 	      default: begin
-			NextState <= IDLE;
+			NextState = IDLE;
 	      end
 	endcase
 end

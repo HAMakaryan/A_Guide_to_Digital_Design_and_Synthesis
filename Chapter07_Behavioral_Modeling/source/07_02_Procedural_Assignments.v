@@ -15,12 +15,9 @@ The left-hand side of a procedural assignment <lvalue> can be one of the followi
  -- A bit select of these variables (e.g., addr[0])
  -- A part select of these variables (e.g., addr[31:16])
  -- A concatenation of any of the above
-
-
-
 */
 
-reg         clock = 1;
+reg   clock = 0;
 reg   a = 0;
 reg   b = 1;
 
@@ -41,9 +38,12 @@ reg [15:0]  reg_a, reg_b;
 integer     count;
 
 
-always #5 clock=!clock;
+always
+begin
+  #5 clock=!clock;
+end
 
-`define N_BLOCKING //BLOCKING // NONBLOCKING
+`define __NONBLOCKING //BLOCKING // NONBLOCKING
 
 /////////////////////////////
 /*
@@ -54,6 +54,7 @@ always #5 clock=!clock;
 `ifdef BLOCKING
   //  Example 7-6 Blocking Statements
 //All behavioral statements must be inside an initial or always block
+
 initial
 begin
   $display("\n\t\tBlocking Assignments");
@@ -72,12 +73,12 @@ end
 
 always @(posedge clock)
 begin
-  a = b;
+  b = a;
 end
 
 always @(posedge clock)
 begin
-  b = a;
+  a = b;
 end
 
 /*
