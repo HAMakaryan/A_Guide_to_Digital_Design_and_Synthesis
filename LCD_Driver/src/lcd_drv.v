@@ -1,4 +1,4 @@
-`timescale 10us/100ns
+`timescale 1us/100ns
 
 module lcd_drv(
   //  System signals
@@ -80,7 +80,7 @@ begin
   	end
   	else begin
     		if (CurrentState == IDLE || CurrentState != NextState) begin
-        		counter <= 0;
+        		counter <= 18'b0;
     		end
     		else begin
         		counter <= counter + 1;
@@ -94,28 +94,37 @@ always@ (*)
 begin
   NextState = CurrentState;
 	case (CurrentState)
-	      IDLE: begin
-	        if(data_valid_i == 1 && device_ready_o == 1) begin
-			NextState = SET;
-		end
+	      IDLE:
+	      begin
+	        if(data_valid_i == 1)
+	        begin
+	          NextState = SET;
+	        end
 	      end
-	      SET: begin
-		if(cnt >= 1) begin
-			NextState = STROBE;
-		end
+	      SET:
+	      begin
+      		if(cnt >= 1)
+      		begin
+      		  NextState = STROBE;
+      		end
 	      end
-	      STROBE: begin
-	        if(cnt >= 1) begin
-			NextState = DELAY;
-		end
+	      STROBE:
+	      begin
+	        if(cnt >= 1)
+	        begin
+	          NextState = DELAY;
+	        end
 	      end
-	      DELAY: begin
-		if(cnt >= dly) begin
-			NextState = IDLE;
-		end
+	      DELAY:
+	      begin
+	        if(cnt >= dly)
+	        begin
+	          NextState = IDLE;
+	        end
 	      end
-	      default: begin
-			NextState = IDLE;
+	      default:
+	      begin
+			    NextState = IDLE;
 	      end
 	endcase
 end

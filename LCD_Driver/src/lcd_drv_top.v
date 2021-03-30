@@ -1,3 +1,4 @@
+`timescale 1us/100ns
 module lcd_drv_top(
   //  System signals
   input         rst_n_i,        //  Active low reset

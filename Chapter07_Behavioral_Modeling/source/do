@@ -1,5 +1,8 @@
-#
-vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter07_Behavioral_Modeling/source/07_02_Procedural_Assignments.v
+# cd  D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter07_Behavioral_Modeling/source/
+# vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter07_Behavioral_Modeling/source/07_02_Procedural_Assignments.v
+# vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter07_Behavioral_Modeling/source/delay_controll.v
+vlog -reportprogress 300 -work work D:/GitHub/ITC/A_Guide_to_Digital_Design_and_Synthesis/Chapter07_Behavioral_Modeling/source/event_based_timing_control.v
+
 restart -f
 run -all
 
