@@ -115,7 +115,7 @@ begin
 
 
 
-  repeat(2) @(posedge clk_r);
+  repeat(20) @(posedge clk_r);
 
 
   $stop;

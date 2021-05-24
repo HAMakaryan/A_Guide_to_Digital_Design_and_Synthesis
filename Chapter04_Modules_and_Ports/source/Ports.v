@@ -96,13 +96,6 @@
     .c_in (C_IN) ,
     .a    (A)
   );
-  // Instantiate module fa_byname and connect signals to ports by name
-  fulladd4 fa_byname(
-    .c_out(C_OUT),
-    .sum  (SUM)  ,
-    .b    (B)    ,
-    .a    (A)
-  );
 
   //  Example 4-8 Hierarchical Names
   stimulus                  stimulus.q

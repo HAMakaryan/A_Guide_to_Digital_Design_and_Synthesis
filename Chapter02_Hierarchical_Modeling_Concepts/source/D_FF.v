@@ -6,8 +6,11 @@ module D_FF(
   reset
 );
 
-output q;
-input d, clk, reset;
+output  q;
+
+input   d;
+input   clk;
+input   reset;
 
 reg q;
 
